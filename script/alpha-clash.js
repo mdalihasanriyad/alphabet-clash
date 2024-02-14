@@ -9,6 +9,27 @@
 
 // }
 
+function handleKeyBoardButtonPress(event){
+    const playerPressed = event.key;
+    console.log('player pressed', playerPressed);
+
+    // get the expected to press
+    const currentAlphabetElement = document.getElementById('current-alphabet');
+    const currentAlphabet = currentAlphabetElement.innerText;
+    const expectedAlphabet = currentAlphabet.toLocaleLowerCase();
+    console.log(playerPressed , expectedAlphabet);
+
+    // check match or not
+    if(playerPressed === expectedAlphabet){
+        console.log('you get a point');
+    }
+    else{
+        console.log('you missed. you lost a life');
+    }
+}
+// capture keyboard key press
+document.addEventListener('keyup', handleKeyBoardButtonPress)
+
 function continueGame(){
     const alphabet =getRandomAlphabet();
     console.log('your random alphabet', alphabet);
