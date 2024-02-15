@@ -13,6 +13,12 @@ function handleKeyBoardButtonPress(event){
     const playerPressed = event.key;
     console.log('player pressed', playerPressed);
 
+    // stop the game if pressed Esc;
+
+    if(playerPressed === 'Escape'){
+        gameOver();
+    }
+
     // get the expected to press
     const currentAlphabetElement = document.getElementById('current-alphabet');
     const currentAlphabet = currentAlphabetElement.innerText;
@@ -23,14 +29,19 @@ function handleKeyBoardButtonPress(event){
     if(playerPressed === expectedAlphabet){
         console.log('you get a point');
 
-        const currentScoreElement = document.getElementById('current-score');
-        const currentScoreText = currentScoreElement.innerText;
-        const currentScore = parseInt(currentScoreText);
-        console.log(currentScore);
+        const currentScore = getTextElementById('current-score');
+        const updateScore = currentScore + 1;
+        setTextElementValueById('current-score', updateScore)
 
-        const newScore = currentScore + 1;
 
-        currentScoreElement.innerText = newScore;
+        // const currentScoreElement = document.getElementById('current-score');
+        // const currentScoreText = currentScoreElement.innerText;
+        // const currentScore = parseInt(currentScoreText);
+        // console.log(currentScore);
+
+        // const newScore = currentScore + 1;
+
+        // currentScoreElement.innerText = newScore;
 
         console.log('you have pressed correctly', expectedAlphabet);
         removeBackgroundColorById(expectedAlphabet);
@@ -39,13 +50,22 @@ function handleKeyBoardButtonPress(event){
     else{
         console.log('you missed. you lost a life');
 
-        const currentLifeElement = document.getElementById('current-life');
-        const currentLifeText = currentLifeElement.innerText;
-        const currentLife = parseInt(currentLifeText);
 
-        const newLife = currentLife - 1;
+        const currentLife = getTextElementById('current-life');
+        const updateLife = currentLife - 1;
+        setTextElementValueById('current-life', updateLife);
 
-        currentLifeElement.innerText = newLife;
+        if(updateLife === 0){
+            gameOver();
+        }
+
+        // const currentLifeElement = document.getElementById('current-life');
+        // const currentLifeText = currentLifeElement.innerText;
+        // const currentLife = parseInt(currentLifeText);
+
+        // const newLife = currentLife - 1;
+
+        // currentLifeElement.innerText = newLife;
     }
 }
 // capture keyboard key press
@@ -65,6 +85,23 @@ function continueGame(){
 
 function play(){
     hideElementById('home-section');
+    hideElementById('final-score')
     showElementById('play-ground');
+
+    setTextElementValueById('current-life', 5);
+    setTextElementValueById('current-score',0);
+
     continueGame();
+}
+
+function gameOver(){
+    hideElementById('play-ground');
+    showElementById('final-score');
+
+    const lastScore =getTextElementValueById('current-score');
+    console.log(lastScore);
+    setTextElementValueById('last-score', lastScore);
+
+    const currentAlphabet = getElementById('current-alphabet');
+    removeBackgroundColorById(currentAlphabet);
 }
