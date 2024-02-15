@@ -17,14 +17,35 @@ function handleKeyBoardButtonPress(event){
     const currentAlphabetElement = document.getElementById('current-alphabet');
     const currentAlphabet = currentAlphabetElement.innerText;
     const expectedAlphabet = currentAlphabet.toLocaleLowerCase();
-    console.log(playerPressed , expectedAlphabet);
+    // console.log(playerPressed , expectedAlphabet);
 
     // check match or not
     if(playerPressed === expectedAlphabet){
         console.log('you get a point');
+
+        const currentScoreElement = document.getElementById('current-score');
+        const currentScoreText = currentScoreElement.innerText;
+        const currentScore = parseInt(currentScoreText);
+        console.log(currentScore);
+
+        const newScore = currentScore + 1;
+
+        currentScoreElement.innerText = newScore;
+
+        console.log('you have pressed correctly', expectedAlphabet);
+        removeBackgroundColorById(expectedAlphabet);
+        continueGame();
     }
     else{
         console.log('you missed. you lost a life');
+
+        const currentLifeElement = document.getElementById('current-life');
+        const currentLifeText = currentLifeElement.innerText;
+        const currentLife = parseInt(currentLifeText);
+
+        const newLife = currentLife - 1;
+
+        currentLifeElement.innerText = newLife;
     }
 }
 // capture keyboard key press
@@ -32,7 +53,7 @@ document.addEventListener('keyup', handleKeyBoardButtonPress)
 
 function continueGame(){
     const alphabet =getRandomAlphabet();
-    console.log('your random alphabet', alphabet);
+    // console.log('your random alphabet', alphabet);
 
     // show display
     const currentAlphabetElement = document.getElementById('current-alphabet');
